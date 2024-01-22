@@ -7,6 +7,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
@@ -15,6 +16,7 @@ import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import java.util.HashMap;
 import java.util.Map;
 
+@Configuration
 public class KafkaConfigurations {
 
     @Bean
@@ -60,7 +62,7 @@ public class KafkaConfigurations {
     }
 
     @Bean
-    public NewTopic topicNewOrder() {
+    public NewTopic topicPayment() {
         return new NewTopic("dev_fernandocarvalho_PAYMENT", 3, (short) 3);
     }
 

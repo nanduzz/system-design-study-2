@@ -1,7 +1,6 @@
 package dev.fernandocarvalho.payments.service;
 
 
-import dev.fernandocarvalho.kafkacommons.model.Message;
 import dev.fernandocarvalho.payments.domain.Payment;
 import dev.fernandocarvalho.payments.exception.PaymentNotFoundException;
 import dev.fernandocarvalho.payments.repository.PaymentRepository;
@@ -24,10 +23,11 @@ public class PaymentService {
 
     public Payment pay() {
         Payment payment = Payment.builder().build();
+        Payment savedPayment = paymentRepository.save(payment);
+        kafkaService.send("Payment", savedPayment);
 
-        Message<Payment> paymentMessage = kafkaService.buildMessage(payment);
+        return savedPayment;
 
-        return paymentRepository.save(payment);
     }
 
     public Payment checkStatus(UUID id) {

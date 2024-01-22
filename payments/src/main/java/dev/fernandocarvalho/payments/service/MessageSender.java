@@ -2,5 +2,5 @@ package dev.fernandocarvalho.payments.service;
 
 public interface MessageSender<T> {
 
-    void send(String destination, String correlationId, T message);
+    void send(String correlationId, T message);
 }

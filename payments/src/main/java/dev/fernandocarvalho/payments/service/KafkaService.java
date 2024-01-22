@@ -4,12 +4,16 @@ import dev.fernandocarvalho.kafkacommons.model.CorrelationId;
 import dev.fernandocarvalho.kafkacommons.model.Message;
 import dev.fernandocarvalho.payments.domain.Payment;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
 
-public class KafkaService implements MessageSender<Message<Payment>> {
+@Service
+public class KafkaService implements MessageSender<Payment> {
 
-    private final KafkaTemplate<String, Message<Payment>> kafkaTemplate;
+    private final String topic = "dev_fernandocarvalho_PAYMENT";
 
-    public KafkaService(KafkaTemplate<String, Message<Payment>> kafkaTemplate) {
+    private final KafkaTemplate<String, Message<?>> kafkaTemplate;
+
+    public KafkaService(KafkaTemplate<String, Message<?>> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
@@ -18,7 +22,8 @@ public class KafkaService implements MessageSender<Message<Payment>> {
     }
 
     @Override
-    public void send(String destination, String correlationId, Message<Payment> message) {
-        kafkaTemplate.send(destination, correlationId, message);
+    public void send(String correlationIdTitle, Payment message) {
+        Message<Payment> data = new Message<>(new CorrelationId(correlationIdTitle), message);
+        kafkaTemplate.send(topic, correlationIdTitle, data);
     }
 }
