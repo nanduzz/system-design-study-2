@@ -8,8 +8,8 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest(classes = KafkaConfigurations.class)
-class KafkaConfigurationsTest {
+@SpringBootTest(classes = KafkaProducerConfigurations.class)
+class KafkaProducerConfigurationsTest {
 
     @Autowired
     private KafkaTemplate<String, Message<?>> kafkaTemplate;

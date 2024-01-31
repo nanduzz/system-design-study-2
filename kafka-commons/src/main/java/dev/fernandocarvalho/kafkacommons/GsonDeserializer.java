@@ -12,7 +12,12 @@ public class GsonDeserializer<T> implements Deserializer<Message<T>> {
             .create();
 
     @Override
-    public Message<T> deserialize(String data, byte[] bytes) {
-        return (Message<T>) gson.fromJson(data, Message.class);
+    public Message<T> deserialize(String topic, byte[] data) {
+        if (data == null) {
+            return null;
+        }
+
+        String jsonString = new String(data);
+        return gson.fromJson(jsonString, Message.class);
     }
 }
