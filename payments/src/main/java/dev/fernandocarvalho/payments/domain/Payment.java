@@ -23,4 +23,7 @@ public class Payment {
     private PaymentStatus status = PaymentStatus.PROCESSING;
 
 
+    public void confirm() {
+        this.status = PaymentStatus.CONFIRMED;
+    }
 }
