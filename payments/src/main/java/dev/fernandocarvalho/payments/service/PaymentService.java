@@ -27,6 +27,7 @@ public class PaymentService {
     public Payment pay() {
         Payment payment = Payment.builder().build();
         Payment savedPayment = paymentRepository.save(payment);
+
         Customer customer = new Customer("customer@getnada.com", "Customer Name");
 
         NewPayment newPayment = new NewPayment(savedPayment.getId(), PaymentStatus.PROCESSING, customer);
